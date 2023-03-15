@@ -1,13 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"path/filepath"
+	"os"
 )
 
 func dirConfirm() bool {
-	_, e := filepath.Abs("~/.template")
-	if e != nil {
+	homedir, _ := os.UserHomeDir()
+	templateDir := homedir + "/.template"
+
+	if _, err := os.Stat(templateDir); os.IsNotExist(err) {
 		return false
 	}
 
@@ -15,5 +16,5 @@ func dirConfirm() bool {
 }
 
 func main() {
-	fmt.Println("vim-go")
+	//dirConfirm()
 }
