@@ -1,8 +1,11 @@
 package main
 
 import (
+	"flag"
 	"os"
 )
+
+var regFlag bool
 
 func dirConfirm() bool {
 	homedir, _ := os.UserHomeDir()
@@ -15,6 +18,21 @@ func dirConfirm() bool {
 	return true
 }
 
+func createTemplateDir() {
+	homedir, _ := os.UserHomeDir()
+	templateDir := homedir + "/.template"
+
+	os.MkdirAll(templateDir, 0777)
+}
+
+func init() {
+	flag.BoolVar(&regFlag, "r", false, "Register Flag")
+}
+
 func main() {
-	//dirConfirm()
+	existFlg := dirConfirm()
+
+	if !existFlg {
+		createTemplateDir()
+	}
 }

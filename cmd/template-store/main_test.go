@@ -15,7 +15,15 @@ func TestDirConfirm(t *testing.T) {
 	}
 
 	os.RemoveAll(templateDir)
-	if !dirConfirm() {
+	if dirConfirm() {
 		t.Error("exist template directory")
 	}
+}
+
+func TestCreateTemplateDir(t *testing.T) {
+	homedir, _ := os.UserHomeDir()
+	templateDir := homedir + "/.template"
+
+	createTemplateDir()
+	os.RemoveAll(templateDir)
 }
