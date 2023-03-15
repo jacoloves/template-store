@@ -1,15 +1,21 @@
 package main
 
 import (
+	"os"
 	"testing"
 )
 
 func TestDirConfirm(t *testing.T) {
-	var tf bool
-	tf = dirConfirm()
-	if tf != false {
-		t.Error("\nactual: ", tf, "\nexpect: ", false)
+	homedir, _ := os.UserHomeDir()
+	templateDir := homedir + "/.template"
+
+	os.MkdirAll(templateDir, 0755)
+	if !dirConfirm() {
+		t.Error("not exist template directory")
 	}
 
-	t.Log("Done TestDirConfirm")
+	os.RemoveAll(templateDir)
+	if !dirConfirm() {
+		t.Error("exist template directory")
+	}
 }
